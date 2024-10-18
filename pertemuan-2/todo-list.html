@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List Application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-6 rounded shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-4 text-center">Todo List Application</h1>
+        <div class="flex mb-4">
+            <input type="text" id="taskInput" placeholder="Inputkan tugas yang akan dikerjakan ..." 
+                class="border border-gray-300 p-2 rounded flex-grow mr-2">
+            <button onclick="addTask()" 
+                class="bg-blue-500 text-white px-4 py-2 rounded">TAMBAH</button>
+        </div>
+        <ul id="taskList" class="space-y-2">
+        </ul>
+    </div>
+
+    <script>
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskText = taskInput.value.trim();
+            if (taskText === '') return;
+
+            const taskList = document.getElementById('taskList');
+
+            const taskItem = document.createElement('li');
+            taskItem.className = "flex items-center justify-between p-2 border rounded bg-gray-50";
+
+            const taskTextElement = document.createElement('span');
+            taskTextElement.textContent = taskText;
+
+            const completeButton = document.createElement('button');
+            completeButton.textContent = "SELESAI";
+            completeButton.className = "bg-green-200 text-green-700 px-2 py-1 rounded mr-2";
+            completeButton.onclick = () => {
+                taskTextElement.classList.toggle('line-through');
+            };
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = "HAPUS";
+            deleteButton.className = "bg-red-200 text-red-700 px-2 py-1 rounded";
+            deleteButton.onclick = () => {
+                taskList.removeChild(taskItem);
+            };
+
+            taskItem.appendChild(taskTextElement);
+            taskItem.appendChild(completeButton);
+            taskItem.appendChild(deleteButton);
+
+            taskList.appendChild(taskItem);
+            
+            taskInput.value = '';
+        }
+    </script>
+</body>
+</html>
